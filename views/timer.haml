@@ -51,9 +51,7 @@
       }
   %body
     #timer.shadow
-      %span#min= param_min
-      %span#separator :
-      %span#sec= param_sec
+      %span#time= "#{min}:#{sec}"
     #container
       #stream
     .javascripts
@@ -62,28 +60,25 @@
       %script(type="text/javascript" src="/javascripts/pusher.min.js")
       %script(type="text/javascript" src="/javascripts/receiver.js")
       :javascript
-        var conv = function(v){return ('00' + v).slice(-2);};
-        var min = #{param_min};
-        var sec = #{param_sec};
-        var count = 0;
+        var format = function(v){return ('00' + v).slice(-2);};
+        var m = #{min};
+        var s = #{sec};
         var timer = $.timer(function() {
-          sec--;
-          if(0 > sec){
-            min--;
-            if(0 < min){
-              sec = 59;
+          s--;
+          if(0 > s){
+            m--;
+            if(0 < m){
+              s = 59;
             }else{
-              if(0 > min){
-                min = 0;
-                sec = 0;
+              if(0 > m){
+                m = 0;
+                s = 0;
                 timer.stop();
               }else{
-                sec = 59;
+                s = 59;
               }
             }
-          }else{
           }
-          $("#min").html(conv(min));
-          $("#sec").html(conv(sec));
+          $("#time").html(format(m) + ":" + format(s));
         });
         timer.set({ time : 1000, autostart : true });
