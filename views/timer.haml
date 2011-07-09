@@ -1,58 +1,12 @@
 !!!
 %html
   %head
-    :css
-      body {
-        overflow:hidden;
-        background-color: black;
-        background-image: url("/images/background.png");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: right bottom;
-      }
-      #timer {
-        text-align: center;
-      }
-      #separator {
-        margin: 0px -20px;
-      }
-      .shadow {
-        font-size: 92pt;
-        color: white;
-        text-shadow: 3px 1px 5px #1fc3ff;
-        filter: dropshadow(color=#1fc3ff, offx=3, offy=1);
-      }
-      .icon {
-        vertical-align: middle;
-      }
-      .tweet {
-        margin: 0;
-        padding: 10px;
-        font-size: 80%;
-        font-weight: bold;
-        background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
-        border-top: 2px solid #fff;
-        border-bottom: 2px solid #bbb;
-        color: #333;
-        text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
-      }
-      .tweet .screen_name a {
-        display: inline-block;
-        margin: 0 5px;
-        padding: 5px 10px;
-        font-size: 70%;
-        font-weight: bold;
-        background: -webkit-gradient(linear, left top, left bottom, from(#333), to(#222));
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        color: #fff;
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 1);
-        text-decoration: none;
-      }
+    %meta(charset='UTF-8')
+    %title kc timer
+    %link(href='/stylesheets/style.css' rel='stylesheet')
   %body
-    #timer.shadow
-      %span#time= "#{min}:#{sec}"
     #container
+      #timer.shadow= timer
       #stream
     .javascripts
       %script(type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js")
@@ -60,25 +14,15 @@
       %script(type="text/javascript" src="/javascripts/pusher.min.js")
       %script(type="text/javascript" src="/javascripts/receiver.js")
       :javascript
-        var format = function(v){return ('00' + v).slice(-2);};
-        var m = #{min};
-        var s = #{sec};
+        var convert = function(v){return ('00' + v).slice(-2);};
+        var time_format = function(s){return convert(parseInt(s / 60)) + ":" + convert(s % 60);};
+
+        var sec = #{sec};
         var timer = $.timer(function() {
-          s--;
-          if(0 > s){
-            m--;
-            if(0 < m){
-              s = 59;
-            }else{
-              if(0 > m){
-                m = 0;
-                s = 0;
-                timer.stop();
-              }else{
-                s = 59;
-              }
-            }
+          sec--;
+          if(0 == sec){
+            timer.stop();
           }
-          $("#time").html(format(m) + ":" + format(s));
+          $("#timer").html(time_format(sec));
         });
         timer.set({ time : 1000, autostart : true });

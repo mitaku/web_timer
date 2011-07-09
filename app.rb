@@ -9,5 +9,12 @@ get "/" do
 end
 
 get "/timer/:min/:sec" do
-  haml :timer, :locals => { :min => params[:min], :sec => params[:sec] }
+  min = params[:min].to_i
+  sec = params[:sec].to_i
+  min = min + (sec / 60)
+  sec = sec % 60
+  timer = min.to_s.rjust(2, "0") + ":" + sec.to_s.rjust(2, "0")
+  second = min * 60 + sec
+
+  haml :timer, :locals => { :sec => second, :timer => timer }
 end
