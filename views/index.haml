@@ -1,0 +1,36 @@
+!!!
+%html
+  %head
+    %meta(charset='UTF-8')
+    %title kc timer
+    %link(href='/stylesheets/style.css' rel='stylesheet')
+  %body#top
+    #container
+      .wrapper
+        %header.box
+          %h1.shadow Web Timer
+        #main.box
+          %p
+            Web Timerは
+            %a(href="http://kosenconf.jp/?hackathon") Kosenconf.jp Hackathon
+            にて作られた
+            %br/
+            カウントダウンタイマーです。
+          %p
+            URLにカウントしたい時間を入力することで
+            %br/
+            カウントダウンタイマーをセットすることができます。
+          %p
+            早速試してみる。
+            %ul
+              %li
+                %a(href="/timer/00/30" target="_blank") 30秒
+              %li
+                %a(href="/timer/05/00" target="_blank") 5分
+              %li
+                %a(href="/timer/15/00" target="_blank") 15分
+        #footer
+          %footer
+
+    .javascripts
+      %script(type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js")

@@ -6,6 +6,47 @@ body {
     background-attachment: fixed;
     background-position: right bottom;
 }
+
+body#top {
+    overflow: auto;
+    background-color: black;
+    background-image: url("/images/background.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.box {
+    margin-top: 10px;
+    background-color: rgba(128,180,20,0.7);
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    border:solid 1px #000000;
+    -moz-border-radius-topleft: 21px;
+    -moz-border-radius-topright:21px;
+    -moz-border-radius-bottomleft:21px;
+    -moz-border-radius-bottomright:21px;
+    -webkit-border-top-left-radius:21px;
+    -webkit-border-top-right-radius:21px;
+    -webkit-border-bottom-left-radius:21px;
+    -webkit-border-bottom-right-radius:21px;
+    border-top-left-radius:21px;
+    border-top-right-radius:21px;
+    border-bottom-left-radius:21px;
+    border-bottom-right-radius:21px;
+    text-align: center;
+}
+#main {
+    text-align: left;
+}
+#main p {
+    margin: 15px;
+    padding: 2px;
+    font-size: 12pt;
+    color: rgba(250,250,250,1);
+}
+
 #timer {
     width: 600px;
     height: 300px;
@@ -16,12 +57,9 @@ body {
     margin-top: -150px;
     margin-left: -300px;
     z-index: 100;
-}
-#separator {
-    margin: 0px -20px;
+    font-size: 144pt;
 }
 .shadow {
-    font-size: 144pt;
     color: white;
     text-shadow: 3px 2px 50px #1fc3ff;
     filter: dropshadow(color=#1fc3ff, offx=3, offy=1);
