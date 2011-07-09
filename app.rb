@@ -16,5 +16,5 @@ get "/timer/:min/:sec" do
   timer = min.to_s.rjust(2, "0") + ":" + sec.to_s.rjust(2, "0")
   second = min * 60 + sec
 
-  haml :timer, :locals => { :sec => second, :timer => timer }
+  haml :timer, :locals => { :sec => second, :timer => timer, :message => params[:message] }
 end

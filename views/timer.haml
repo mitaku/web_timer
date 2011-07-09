@@ -13,15 +13,21 @@
       %script(type="text/javascript" src="/javascripts/jquery.timer.js")
       %script(type="text/javascript" src="/javascripts/pusher.min.js")
       %script(type="text/javascript" src="/javascripts/receiver.js")
+      - message ||= "Finish!"
       :javascript
         var convert = function(v){return ('00' + v).slice(-2);};
         var time_format = function(s){return convert(parseInt(s / 60)) + ":" + convert(s % 60);};
-
+        var msg = '#{message}';
+        var msg_length = msg.length;
         var sec = #{sec};
         var timer = $.timer(function() {
           sec--;
           if(0 == sec){
             timer.stop();
+            if(msg.length > 0){
+              $("#timer").html(msg);
+              return false;
+            }
           }
           $("#timer").html(time_format(sec));
         });
