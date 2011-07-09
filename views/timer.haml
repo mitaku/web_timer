@@ -1,0 +1,89 @@
+!!!
+%html
+  %head
+    :css
+      body {
+        overflow:hidden;
+        background-color: black;
+        background-image: url("/images/background.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: right bottom;
+      }
+      #timer {
+        text-align: center;
+      }
+      #separator {
+        margin: 0px -20px;
+      }
+      .shadow {
+        font-size: 92pt;
+        color: white;
+        text-shadow: 3px 1px 5px #1fc3ff;
+        filter: dropshadow(color=#1fc3ff, offx=3, offy=1);
+      }
+      .icon {
+        vertical-align: middle;
+      }
+      .tweet {
+        margin: 0;
+        padding: 10px;
+        font-size: 80%;
+        font-weight: bold;
+        background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+        border-top: 2px solid #fff;
+        border-bottom: 2px solid #bbb;
+        color: #333;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+      }
+      .tweet .screen_name a {
+        display: inline-block;
+        margin: 0 5px;
+        padding: 5px 10px;
+        font-size: 70%;
+        font-weight: bold;
+        background: -webkit-gradient(linear, left top, left bottom, from(#333), to(#222));
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        color: #fff;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 1);
+        text-decoration: none;
+      }
+  %body
+    #timer.shadow
+      %span#min= param_min
+      %span#separator :
+      %span#sec= param_sec
+    #container
+      #stream
+    .javascripts
+      %script(type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js")
+      %script(type="text/javascript" src="/javascripts/jquery.timer.js")
+      %script(type="text/javascript" src="/javascripts/pusher.min.js")
+      %script(type="text/javascript" src="/javascripts/receiver.js")
+      :javascript
+        var conv = function(v){return ('00' + v).slice(-2);};
+        var min = #{param_min};
+        var sec = #{param_sec};
+        var count = 0;
+        var timer = $.timer(function() {
+          sec--;
+          if(0 > sec){
+            min--;
+            if(0 < min){
+              sec = 59;
+            }else{
+              if(0 > min){
+                min = 0;
+                sec = 0;
+                timer.stop();
+              }else{
+                sec = 59;
+              }
+            }
+          }else{
+          }
+          $("#min").html(conv(min));
+          $("#sec").html(conv(sec));
+        });
+        timer.set({ time : 1000, autostart : true });
