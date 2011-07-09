@@ -9,9 +9,5 @@ get "/" do
 end
 
 get "/timer/:min/:sec" do
-  haml :test, :locals => { :param_min => params[:min], :param_sec => params[:sec] }
-end
-
-get "/countdown" do
-  haml :countdown
+  haml :timer, :locals => { :param_min => params[:min], :param_sec => params[:sec] }
 end
