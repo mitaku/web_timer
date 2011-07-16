@@ -21,8 +21,8 @@ $(document).ready(function() {
     cutoff();
   }
 
-  var stream = new Pusher("7fad49ae7f0978446888", "stream");
-
+  var pusher = new Pusher('7fad49ae7f0978446888');
+  var stream = pusher.subscribe('stream');
   stream.bind("twitter", function(message) {
     var data = message.data;
     var user = data.user;
